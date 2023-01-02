@@ -1,5 +1,6 @@
 import User from '../models/User.js'
 import { StatusCodes } from 'http-status-codes'
+import errors from '../errors/index.js'
 
 
 
@@ -16,7 +17,29 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    res.end('You\'ve hit the login controller')
+    console.log('You\'ve hit the login controller')
+
+    const { email, password } = req.body
+
+    if (!email || !password) {
+        throw new errors.BadRequestError('email or password not provided!!!')
+    }
+
+    const user = await User.findOne({ email })
+
+
+    if (!user) {
+        throw new errors.UnauthenticatedError('Invalid credentials')
+    }
+
+
+    const token = user.createJWT()
+    res.status(StatusCodes.OK).json(
+        {
+            user: { name: user.name },
+            token,
+        }
+    )
 }
 
 export { register, login }

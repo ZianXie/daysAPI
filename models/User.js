@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 const UserSchema = new mongoose.Schema(
     {
@@ -37,6 +38,15 @@ UserSchema.pre(
         next()
     }
 )
+
+
+UserSchema.methods.createJWT = function () {
+    return jwt.sign(
+        { mongoDocID: this._id, name: this.name },
+        process.env.JWT_SECRET,
+        { expiresIn: '30d' }
+    )
+}
 
 
 const User = mongoose.model('User', UserSchema)

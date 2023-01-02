@@ -17,6 +17,10 @@ const register = async (req, res) => {
     )
 }
 
+
+
+
+
 const login = async (req, res) => {
     console.log('You\'ve hit the login controller')
 

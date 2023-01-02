@@ -1,7 +1,7 @@
 import myEnv from 'dotenv'
 myEnv.config()
 import express from 'express';
-import 'express-async-errors'	//it actually works, verified
+import 'express-async-errors'	//it actually works, verified 
 
 import jobsRouter from './routes/jobs.js';
 import authRouter from './routes/auth.js'

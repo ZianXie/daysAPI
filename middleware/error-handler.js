@@ -22,6 +22,16 @@ const errorHandlerMiddleware = (err, req, res, next) => {
 
 
 
+	//catch cast syntax error
+	if (err.name === 'CastError') {
+		// console.log(err);
+		customError.msg = `No item found with id: ${err.value._id}`
+		customError.statusCode = 404
+	}
+
+
+
+
 	//catch userSchema validation errors
 	if (err.name === 'ValidationError') {
 		customError.msg = Object.values(err.errors)

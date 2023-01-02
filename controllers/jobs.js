@@ -3,8 +3,10 @@ import { StatusCodes } from 'http-status-codes'
 import errors from '../errors/index.js'
 
 
-const getAllJobs = (req, res) => {
-    res.send('You\'ve hit the getAllJobs controller')
+const getAllJobs = async (req, res) => {
+    console.log('You\'ve hit the getAllJobs controller')
+    const jobs = await Job.find({ createdByUser: req.user.userID }).sort('createdAt')
+    res.status(StatusCodes.OK).json({ nbHits: jobs.length, jobs })
 }
 
 const getJob = (req, res) => {
@@ -14,7 +16,7 @@ const getJob = (req, res) => {
 const createJob = async (req, res) => {
     console.log('You\'ve hit the createJob controller')
 
-    req.body.createdBy = req.user.userID
+    req.body.createdByUser = req.user.userID
     // console.log(req.body.createdBy);
     const job = await Job.create(req.body)
 

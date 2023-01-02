@@ -37,7 +37,7 @@ const updateJob = async (req, res) => {
     console.log('You\'ve hit the updateJob controller')
     const {
         body: { company, position },
-        user: { userId },
+        user: { userID },
         params: { id: jobId },
     } = req
 
@@ -45,7 +45,7 @@ const updateJob = async (req, res) => {
         throw new errors.BadRequestError('Company or Position fields cannot be empty')
     }
     const job = await Job.findByIdAndUpdate(
-        { _id: jobId, createdByUser: userId },
+        { _id: jobId, createdByUser: userID },
         req.body,
         { new: true, runValidators: true }
     )
@@ -55,8 +55,23 @@ const updateJob = async (req, res) => {
     res.status(StatusCodes.OK).json({ job })
 }
 
-const deleteJob = (req, res) => {
-    res.send('You\'ve hit the deleteJob controller')
+const deleteJob = async (req, res) => {
+    console.log('You\'ve hit the deleteJob controller')
+
+    const {
+        params: { id: jobID },
+        user: { userID }
+    } = req
+
+    const job = await Job.findByIdAndDelete(
+        { _id: jobID, createdByUser: userID },
+    )
+
+    if (!job) {
+        throw new errors.NotFoundError('the job intended to delete doesn\'t exist')
+    }
+
+    res.status(StatusCodes.OK).json({ msg: 'deleted the following job', job })
 }
 
 export { getAllJobs, getJob, createJob, updateJob, deleteJob }

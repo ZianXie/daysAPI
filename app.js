@@ -4,6 +4,7 @@ import express from 'express';
 import 'express-async-errors'
 
 import jobsRouter from './routes/jobs.js';
+import authRouter from './routes/auth.js'
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/jobs', jobsRouter)
+app.use('/api/v1/auth', authRouter)
 
 
 

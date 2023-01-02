@@ -1,21 +1,21 @@
 const getAllJobs = (req, res) => {
-    res.send('You\'v hit the getAllJobs controller')
+    res.send('You\'ve hit the getAllJobs controller')
 }
 
 const getJob = (req, res) => {
-    res.send('You\'v hit the getJob controller')
+    res.send('You\'ve hit the getJob controller')
 }
 
 const createJob = (req, res) => {
-    res.send('You\'v hit the createJob controller')
+    res.send('You\'ve hit the createJob controller')
 }
 
 const updateJob = (req, res) => {
-    res.send('You\'v hit the updateJob controller')
+    res.send('You\'ve hit the updateJob controller')
 }
 
 const deleteJob = (req, res) => {
-    res.send('You\'v hit the deleteJob controller')
+    res.send('You\'ve hit the deleteJob controller')
 }
 
 export { getAllJobs, getJob, createJob, updateJob, deleteJob }

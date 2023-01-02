@@ -3,6 +3,8 @@ myEnv.config()
 import express from 'express';
 import 'express-async-errors'
 
+import jobsRouter from './routes/jobs.js';
+
 const app = express();
 
 // error handler
@@ -16,6 +18,11 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('jobs api');
 });
+
+app.use('/api/v1/jobs', jobsRouter)
+
+
+
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

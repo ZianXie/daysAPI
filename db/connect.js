@@ -6,7 +6,7 @@ const connectDB = (url) => {
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
-  },console.log('mongoose connecting'))
+  },console.log('mongoose is connecting...'))
 }
 
 export default connectDB

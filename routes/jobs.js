@@ -3,7 +3,7 @@ import express from 'express'
 
 const jobsRouter = express.Router()
 
-jobsRouter.route('/').get(getAllJobs)
-jobsRouter.route('/:id').get(getJob).post(createJob).patch(updateJob).delete(deleteJob)
+jobsRouter.route('/').get(getAllJobs).post(createJob)
+jobsRouter.route('/:id').get(getJob).patch(updateJob).delete(deleteJob)
 
 export default jobsRouter

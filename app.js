@@ -15,6 +15,11 @@ import errorHandlerMiddleware from './middleware/error-handler.js';
 app.use(express.json());
 // extra packages
 
+
+//connectDB
+import connectDB from './db/connect.js';
+
+
 // routes
 app.get('/', (req, res) => {
   res.send('jobs api');
@@ -33,6 +38,8 @@ const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
+    await connectDB(process.env.MONGO_URI)
+    console.log('Connected to MongoDB');
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );

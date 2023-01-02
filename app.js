@@ -1,7 +1,7 @@
 import myEnv from 'dotenv'
 myEnv.config()
 import express from 'express';
-import 'express-async-errors'
+import 'express-async-errors'	//it actually works, verified
 
 import jobsRouter from './routes/jobs.js';
 import authRouter from './routes/auth.js'
@@ -22,7 +22,7 @@ import connectDB from './db/connect.js';
 
 // routes
 app.get('/', (req, res) => {
-  res.send('jobs api');
+	res.send('jobs api');
 });
 
 app.use('/api/v1/jobs', jobsRouter)
@@ -37,15 +37,15 @@ app.use(errorHandlerMiddleware);
 const port = process.env.PORT || 3000;
 
 const start = async () => {
-  try {
-    await connectDB(process.env.MONGO_URI)
-    console.log('Connected to MongoDB');
-    app.listen(port, () =>
-      console.log(`Server is listening on port ${port}...`)
-    );
-  } catch (error) {
-    console.log(error);
-  }
+	try {
+		connectDB(process.env.MONGO_URI)
+		console.log('Connected to MongoDB');
+		app.listen(port, () =>
+			console.log(`Server is listening on port ${port}...`)
+		);
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 start();

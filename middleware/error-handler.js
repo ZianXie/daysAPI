@@ -1,4 +1,4 @@
-import errors from '../errors/index.js'
+// import errors from '../errors/index.js'
 import StatusCodes from 'http-status-codes'
 const errorHandlerMiddleware = (err, req, res, next) => {
 	console.log('error handler middleware working...');
@@ -12,9 +12,24 @@ const errorHandlerMiddleware = (err, req, res, next) => {
 	}
 
 
-	//catch the badRequest, notFound and unauthenticated
-	if (err instanceof errors.CustomAPIError) {
-		return res.status(err.statusCode).json({ msg: err.message })
+
+	/* (loses effect after custmError in place)
+	catch the badRequest, notFound and unauthenticated
+	 */
+	// if (err instanceof errors.CustomAPIError) {
+	// 	return res.status(err.statusCode).json({ msg: err.message })
+	// }
+
+
+
+	//catch userSchema validation errors
+	if (err.name === 'ValidationError') {
+		customError.msg = Object.values(err.errors)
+			.map(
+				(item) => item.message
+			)
+			.join(', ')
+		customError.statusCode = 400
 	}
 
 
@@ -25,6 +40,9 @@ const errorHandlerMiddleware = (err, req, res, next) => {
 		customError.statusCode = 400
 	}
 
+
+
+	// return res.status(customError.statusCode).json({ err })
 	return res.status(customError.statusCode).json({ msg: customError.msg })
 }
 

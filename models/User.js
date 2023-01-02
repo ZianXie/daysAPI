@@ -42,7 +42,7 @@ UserSchema.pre(
 
 UserSchema.methods.createJWT = function () {
     return jwt.sign(
-        { mongoDocID: this._id, name: this.name },
+        { mongoDoc_userID: this._id, name: this.name },
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_LIFETIME }
     )

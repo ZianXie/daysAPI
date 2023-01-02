@@ -23,7 +23,7 @@ const auth = async (req, res, next) => {
 
 
         //attach the user to the job routes
-        req.user = { userID: payload.mongoDocID, name: payload.name }
+        req.user = { userID: payload.mongoDoc_userID, name: payload.name }
         next()
     } catch (error) {
         throw new errors.UnauthenticatedError('Authorization invalid, jwtVerify')

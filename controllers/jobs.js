@@ -6,11 +6,21 @@ import errors from '../errors/index.js'
 const getAllJobs = async (req, res) => {
     console.log('You\'ve hit the getAllJobs controller')
     const jobs = await Job.find({ createdByUser: req.user.userID }).sort('createdAt')
-    res.status(StatusCodes.OK).json({ nbHits: jobs.length, jobs })
+    res.status(StatusCodes.OK).json({ User: req.user.name, nbHits: jobs.length, jobs })
 }
 
-const getJob = (req, res) => {
-    res.send('You\'ve hit the getJob controller')
+const getJob = async (req, res) => {
+    console.log('You\'ve hit the getJob controller')
+    const { user: { userID: userID }, params: { id: jobID } } = req
+    // console.log(req.user);
+    const job = await Job.findOne({ _id: jobID, createdByUser: userID })
+
+    if (!job) {
+        throw new errors.NotFoundError('no job with such job id')
+    }
+
+    res.status(StatusCodes.OK).json(job)
+
 }
 
 const createJob = async (req, res) => {

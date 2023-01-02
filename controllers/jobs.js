@@ -7,7 +7,8 @@ const getJob = (req, res) => {
 }
 
 const createJob = (req, res) => {
-    res.send('You\'ve hit the createJob controller')
+    console.log('You\'ve hit the createJob controller')
+    res.json(req.user)
 }
 
 const updateJob = (req, res) => {

@@ -16,6 +16,10 @@ import xss from 'xss-clean'
 import rateLimiter from 'express-rate-limit'
 
 
+// Swagger
+import * as SwaggerUI from 'swagger-ui-express';
+import YAML from 'yamljs'
+const swaggerDocument = YAML.load("./swagger.yaml");
 
 
 const app = express();
@@ -59,6 +63,7 @@ app.use('/api/v1/days', authenticateUser, daysRouter)
 app.use('/api/v1/auth', authRouter)
 
 
+app.use("/api-docs", SwaggerUI.serve, SwaggerUI.setup(swaggerDocument));
 
 
 app.use(notFoundMiddleware);

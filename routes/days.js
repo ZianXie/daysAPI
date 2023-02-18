@@ -1,4 +1,4 @@
-import { getAllDays, getDay, createDay, updateDay, deleteDay } from '../controllers/Days.js'
+import { getAllDays, getDay, createDay, updateDay, deleteDay } from '../controllers/days.js'
 import express from 'express'
 
 const DaysRouter = express.Router()
